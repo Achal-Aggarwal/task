@@ -1,0 +1,42 @@
+<p id="notice"><%= notice %></p>
+<p>
+  <strong>Id:</strong>
+  <%= @user.id %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @user.name %>
+</p>
+
+<p>
+  <strong>Github:</strong>
+  <a href="https://github.com/<%= @user.username %>">View</a>
+</p>
+
+<table id="myTable" class="tablesorter">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Language</th>
+      <th>Size</th>
+      <th>isForked</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @repos.each do |repo| %>
+      <tr>
+        <td><%= repo.id %></td>
+        <td><%= repo.name %></td>
+        <td><%= repo.language %></td>
+        <td><%= repo.size %></td>
+        <td><%= repo.fork %></td>
+        <td><a href="https://github.com/<%= @user.username %>/<%= repo.name %>">View</a></td>
+        <td><%= link_to 'Destroy', repo, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

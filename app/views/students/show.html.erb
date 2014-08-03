@@ -1,0 +1,65 @@
+<p id="notice"><%= notice %></p>
+<p>
+  <strong>Id:</strong>
+  <%= @student.id %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @student.name %>
+</p>
+
+<p>
+  <strong>Project:</strong>
+  <%= @student.project %>
+</p>
+
+<%= link_to 'Edit', edit_student_path(@student) %> |
+<%= link_to 'Back', students_path %>
+
+<table id="myTable" class="tablesorter">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>User Name</th>
+      <th>Email</th>
+      <th>Location</th>
+      <th>Blog</th>
+      <th>Company</th>
+      <th>Repos</th>
+      <th>Languages</th>
+      <th>Size</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user|
+      repos = Repo.where(user_id: user.id)
+      crepos = repos.length
+      csize = 0
+      clanguages = []
+      repos.each { |e|
+        csize += e.size.to_i
+        clanguages << e.language  if e.language != ''
+      }
+
+    %>
+      <tr>
+        <td><%= user.id %></td>
+        <td><%= user.name %></td>
+        <td><%= user.username %></td>
+        <td><%= user.email %></td>
+        <td><%= user.location %></td>
+        <td><%= user.blog %></td>
+        <td><%= user.company %></td>
+        <td><%= crepos %></td>
+        <td><%= clanguages.uniq.join(", ") %></td>
+        <td><%= csize %></td>
+        <td><%= link_to 'Show', user %></td>
+        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
